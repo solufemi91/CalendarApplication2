@@ -8,18 +8,17 @@ namespace CalendarApplication.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IHomePageModelBuilder _homePageModelBuilder;
+        public HomeController(IHomePageModelBuilder homePageModelBuilder)
+        {
+            _homePageModelBuilder = homePageModelBuilder;
+        }
         public ActionResult Index()
         {
-            var result = new HomePageModelBuilder().GetModel();
+            var result = _homePageModelBuilder.GetModel();
 
             return View();
         }
 
-        public ActionResult Home()
-        {
-            var result = new HomePageModelBuilder().GetModel();
-
-            return View();
-        }
     }
 }

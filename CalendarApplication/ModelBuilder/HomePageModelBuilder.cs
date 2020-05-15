@@ -9,8 +9,13 @@ using System.Web;
 
 namespace CalendarApplication.ModelBuilder
 {
-    public class HomePageModelBuilder
+    public class HomePageModelBuilder : IHomePageModelBuilder
     {
+        private readonly ILoginClient _loginClient;
+        public HomePageModelBuilder(ILoginClient loginClient)
+        {
+            _loginClient = loginClient;
+        }
         public HomePageModel GetModel()
         {
             var model = new HomePageModel();
@@ -20,15 +25,11 @@ namespace CalendarApplication.ModelBuilder
             return model;
         }
 
-        private async Task<bool> IsUserValidAsync()
+        public async Task<bool> IsUserValidAsync()
         {
-            var client = new LoginClient();
-
             var request = new LoginRequestDTO { UserName = "Solufemi91", Password = "Password" };
 
-            var result = await client.PostValidUserAsync(request);
-
-            return result;
+            return await _loginClient.PostValidUserAsync(request);
         }
     }
 }
