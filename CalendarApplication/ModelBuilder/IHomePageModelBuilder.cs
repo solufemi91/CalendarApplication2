@@ -1,4 +1,5 @@
 ﻿using CalendarApplication.Models;
+using LoginApiClientV3.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,8 @@ namespace CalendarApplication.ModelBuilder
 {
     public interface IHomePageModelBuilder
     {
-        HomePageModel GetModel();
+        HomePageModel GetModel(LoginRequestDTO loginRequest);
 
-        Task<bool> IsUserValidAsync();
+        Task<bool> IsUserValidAsync(LoginRequestDTO loginRequest);
     }
 }

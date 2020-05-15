@@ -15,7 +15,14 @@ namespace CalendarApplication.Controllers
         }
         public ActionResult Index()
         {
-            var result = _homePageModelBuilder.GetModel();
+            return View();
+        }
+
+        [HttpPost]
+        [Route("login")]
+        public ActionResult Login(LoginRequestDTO loginRequest)
+        {
+            var result = _homePageModelBuilder.GetModel(loginRequest);
 
             return View();
         }

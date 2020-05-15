@@ -16,20 +16,18 @@ namespace CalendarApplication.ModelBuilder
         {
             _loginClient = loginClient;
         }
-        public HomePageModel GetModel()
+        public HomePageModel GetModel(LoginRequestDTO loginRequest)
         {
             var model = new HomePageModel();
 
-            model.Valid = Task.Run(async () => await IsUserValidAsync()).GetAwaiter().GetResult();
+            model.Valid = Task.Run(async () => await IsUserValidAsync(loginRequest)).GetAwaiter().GetResult();
 
             return model;
         }
 
-        public async Task<bool> IsUserValidAsync()
+        public async Task<bool> IsUserValidAsync(LoginRequestDTO loginRequest)
         {
-            var request = new LoginRequestDTO { UserName = "Solufemi91", Password = "Password" };
-
-            return await _loginClient.PostValidUserAsync(request);
+            return await _loginClient.PostValidUserAsync(loginRequest);
         }
     }
 }
