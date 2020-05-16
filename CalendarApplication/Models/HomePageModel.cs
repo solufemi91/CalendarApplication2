@@ -7,6 +7,6 @@ namespace CalendarApplication.Models
 {
     public class HomePageModel
     {
-        public bool Valid { get; set; }
+        public bool? Valid { get; set; }
     }
 }

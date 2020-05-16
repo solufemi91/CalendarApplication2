@@ -1,4 +1,5 @@
 ﻿using CalendarApplication.ModelBuilder;
+using CalendarApplication.Models;
 using LoginApiClientV3;
 using LoginApiClientV3.Models;
 using System;
@@ -9,6 +10,7 @@ namespace CalendarApplication.Controllers
     public class HomeController : Controller
     {
         private readonly IHomePageModelBuilder _homePageModelBuilder;
+
         public HomeController(IHomePageModelBuilder homePageModelBuilder)
         {
             _homePageModelBuilder = homePageModelBuilder;
@@ -19,12 +21,23 @@ namespace CalendarApplication.Controllers
         }
 
         [HttpPost]
-        [Route("login")]
         public ActionResult Login(LoginRequestDTO loginRequest)
         {
             var result = _homePageModelBuilder.GetModel(loginRequest);
 
-            return View();
+
+            return RedirectToAction("userHomePage", "home", new { isValid = result.Valid });
+        }
+
+        [HttpGet]
+        public ActionResult UserHomePage(bool? isValid)
+        {
+            var model = new HomePageModel
+            {
+                Valid = isValid
+            };
+
+            return View(model);
         }
 
     }
