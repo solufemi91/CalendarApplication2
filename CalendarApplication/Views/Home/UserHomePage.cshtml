@@ -2,9 +2,9 @@
     ViewBag.Title = "Home Page";
 }
 
-@model CalendarApplication.Models.HomePageModel
-<div class="jumbotron">
-    <h1>User Home Page</h1>
-    <h1>@Model.Valid</h1>
-</div>
+@model CalendarApplication.Models.UserHomePageModel
+    <div class="jumbotron">
+        <h1>@Model.FirstName</h1>
+        <h1>@Model.LastName</h1>
+    </div>
 

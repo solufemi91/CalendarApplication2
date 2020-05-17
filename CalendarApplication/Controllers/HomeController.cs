@@ -1,19 +1,23 @@
 ﻿using CalendarApplication.ModelBuilder;
 using CalendarApplication.Models;
+using CalendarApplication.Wrapper;
 using LoginApiClientV3;
 using LoginApiClientV3.Models;
 using System;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace CalendarApplication.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IHomePageModelBuilder _homePageModelBuilder;
+        private readonly IUserHomePageModelBuilder _homePageModelBuilder;
+        private readonly IAccountWrapper _accountWrapper;
 
-        public HomeController(IHomePageModelBuilder homePageModelBuilder)
+        public HomeController(IUserHomePageModelBuilder homePageModelBuilder, IAccountWrapper accountWrapper)
         {
             _homePageModelBuilder = homePageModelBuilder;
+            _accountWrapper = accountWrapper;
         }
         public ActionResult Index()
         {
@@ -23,21 +27,24 @@ namespace CalendarApplication.Controllers
         [HttpPost]
         public ActionResult Login(LoginRequestDTO loginRequest)
         {
-            var result = _homePageModelBuilder.GetModel(loginRequest);
+            var result = _accountWrapper.PostValidUser(loginRequest);
 
-
-            return RedirectToAction("userHomePage", "home", new { isValid = result.Valid });
+            return RedirectToAction("userHomePage", "home", new { id = result?.LoginDetailsID });
         }
 
         [HttpGet]
-        public ActionResult UserHomePage(bool? isValid)
+        public ActionResult UserHomePage(int? id)
         {
-            var model = new HomePageModel
+            if(id == null)
             {
-                Valid = isValid
-            };
+                return RedirectToAction("index", "home");
+            }
+            else {
 
-            return View(model);
+                var model = _homePageModelBuilder.GetModel(id);
+                return View(model);
+            }
+                      
         }
 
     }

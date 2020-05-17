@@ -11,7 +11,7 @@ namespace CalendarApplication.Installers
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(Classes.FromThisAssembly()
-                .Where(Component.IsInSameNamespaceAs<HomePageModelBuilder>())
+                .Where(Component.IsInSameNamespaceAs<UserHomePageModelBuilder>())
                 .WithService.DefaultInterfaces()
                 .LifestyleTransient());
         }

@@ -8,10 +8,9 @@ using System.Threading.Tasks;
 
 namespace CalendarApplication.ModelBuilder
 {
-    public interface IHomePageModelBuilder
+    public interface IUserHomePageModelBuilder
     {
-        HomePageModel GetModel(LoginRequestDTO loginRequest);
+        UserHomePageModel GetModel(int? id);
 
-        Task<bool> IsUserValidAsync(LoginRequestDTO loginRequest);
     }
 }

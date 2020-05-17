@@ -51,8 +51,8 @@
     <Reference Include="Castle.Windsor, Version=5.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Windsor.5.0.1\lib\net45\Castle.Windsor.dll</HintPath>
     </Reference>
-    <Reference Include="LoginApiClientV3, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\OlufemiLtd.Util.LoginApiClientV3.1.3.0\lib\net472\LoginApiClientV3.dll</HintPath>
+    <Reference Include="LoginApiClientV3, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OlufemiLtd.Util.LoginApiClientV3.1.7.0\lib\net472\LoginApiClientV3.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -140,11 +140,14 @@
     <Compile Include="Installers\ClientInstaller.cs" />
     <Compile Include="Installers\ControllersInstaller.cs" />
     <Compile Include="Installers\ModelBuilderInstaller.cs" />
-    <Compile Include="ModelBuilder\HomePageModelBuilder.cs" />
-    <Compile Include="ModelBuilder\IHomePageModelBuilder.cs" />
-    <Compile Include="Models\HomePageModel.cs" />
+    <Compile Include="Installers\WrapperInstaller.cs" />
+    <Compile Include="ModelBuilder\UserHomePageModelBuilder.cs" />
+    <Compile Include="ModelBuilder\IUserHomePageModelBuilder.cs" />
+    <Compile Include="Models\UserHomePageModel.cs" />
     <Compile Include="Plumbing\WindsorControllerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Wrapper\AccountWrapper.cs" />
+    <Compile Include="Wrapper\IAccountWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
