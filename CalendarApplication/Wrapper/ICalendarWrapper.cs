@@ -1,0 +1,14 @@
+﻿using CalendarApplication.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CalendarApplication.Wrapper
+{
+    public interface ICalendarWrapper
+    {
+        Calendar GetCurrentYearData();
+    }
+}

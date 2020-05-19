@@ -13,7 +13,9 @@ namespace CalendarApplication.Installers
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<IAccountWrapper>().ImplementedBy<AccountWrapper>());
+            container.Register(
+                Component.For<IAccountWrapper>().ImplementedBy<AccountWrapper>(),
+                Component.For<ICalendarWrapper>().ImplementedBy<CalendarWrapper>());
         }
     }
 }

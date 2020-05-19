@@ -1,5 +1,7 @@
 ﻿using CalendarApplication.Models;
 using CalendarApplication.Wrapper;
+using CalenderApiClient;
+using CalenderApiClient.DTOs;
 using LoginApiClientV3;
 using LoginApiClientV3.Models;
 using System;
@@ -13,9 +15,12 @@ namespace CalendarApplication.ModelBuilder
     public class UserHomePageModelBuilder : IUserHomePageModelBuilder
     {
         private readonly IAccountWrapper _accountWrapper;
-        public UserHomePageModelBuilder(IAccountWrapper accountWrapper)
+        private readonly ICalendarWrapper _calendarWrapper;
+
+        public UserHomePageModelBuilder(IAccountWrapper accountWrapper, ICalendarWrapper calendarWrapper)
         {
             _accountWrapper = accountWrapper;
+            _calendarWrapper = calendarWrapper;
         }
 
         public UserHomePageModel GetModel(int? id)
@@ -25,10 +30,19 @@ namespace CalendarApplication.ModelBuilder
             {
                 FirstName = result.FirstOrDefault().FirstName,
                 LastName = result.FirstOrDefault().LastName,
-                BookingDetails = result
+                BookingDetails = result,
+                CalendarData = GetCalendarData()
             };
            
             return model;
+        }
+
+        private Calendar GetCalendarData()
+        {
+            var year = _calendarWrapper.GetCurrentYearData();
+
+            return year;
+
         }
     }
 }

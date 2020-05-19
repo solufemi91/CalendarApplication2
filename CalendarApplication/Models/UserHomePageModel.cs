@@ -14,5 +14,7 @@ namespace CalendarApplication.Models
         public string LastName { get; set; }
 
         public List<BookingDetailsDTO> BookingDetails { get; set; }
+
+        public Calendar CalendarData { get; set; }
     }
 }

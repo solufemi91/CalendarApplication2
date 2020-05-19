@@ -2,9 +2,13 @@
     ViewBag.Title = "Home Page";
 }
 
+@using System.Web.Script.Serialization;
+
+@{ var obj = new JavaScriptSerializer().Serialize(Model); };
+
 @model CalendarApplication.Models.UserHomePageModel
-    <div class="jumbotron">
-        <h1>@Model.FirstName</h1>
-        <h1>@Model.LastName</h1>
-    </div>
+<div class="jumbotron" data-react-model="@obj">
+    <h1>@Model.FirstName</h1>
+    <h1>@Model.LastName</h1>
+</div>
 
