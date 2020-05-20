@@ -1,17 +1,17 @@
-﻿<!DOCTYPE html>
-
-@{
-    Layout = null;
+﻿@{
+    ViewBag.Title = "Home Page2";
 }
-<html>
-<head>
-    <title>Hello React</title>
-</head>
-<body>
+
+@using System.Web.Script.Serialization;
+
+@{ var obj = new JavaScriptSerializer().Serialize(Model); }
+
+@model CalendarApplication.Models.UserHomePageModel
+<div class="jumbotron" data-react-model="@obj">
+    <h1>@Model.FirstName</h1>
+    <h1>@Model.LastName</h1>
     <div id="content"></div>
-    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/16.13.0/umd/react.development.js"></script>
-    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.13.0/umd/react-dom.development.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.7.1/remarkable.min.js"></script>
-    <script src="@Url.Content("~/Scripts/Tutorial.jsx")"></script>
-</body>
-</html>
+</div>
+
+
+
