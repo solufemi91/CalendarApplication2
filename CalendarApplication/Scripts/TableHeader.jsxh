@@ -1,0 +1,19 @@
+﻿class TableHeader extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            message: "This is my react-calendar"
+        };
+    }
+
+    render() {
+        return (
+            <thead>
+                <tr>
+                    <td/>
+                </tr>
+            </thead>
+        );
+    }
+}

@@ -1,6 +1,8 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    font-family: 'Helvetica';
+    border: 1px solid blue;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -21,4 +23,22 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+table {
+    margin: 0 auto;
+    border-radius: 10px;
+    border: 1px solid blue;
+}
+
+td {
+    width: 170px;
+    height: 170px;
+    text-align: center;
+    font-size: 1em;
+    border: 1px solid blue;
+}
+
+.boxes {
+    border-radius: 5px;
 }

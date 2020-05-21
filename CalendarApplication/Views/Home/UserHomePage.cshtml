@@ -7,10 +7,10 @@
 @{ var obj = new JavaScriptSerializer().Serialize(Model); }
 
 @model CalendarApplication.Models.UserHomePageModel
-<div class="jumbotron" data-react-model="@obj">
+<div class="jumbotron">
     <h1>@Model.FirstName</h1>
     <h1>@Model.LastName</h1>
-    <div id="content"></div>
+    <div id="calendarContainer" data-react-model="@obj"></div>
 </div>
 
 
