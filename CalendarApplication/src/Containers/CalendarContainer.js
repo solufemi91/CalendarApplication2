@@ -21,8 +21,8 @@ const getDaysOfTheWeek = (calendarData) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        weeks: id => {
-            dispatch({ type: 'GETMONTH', id: id });
+        addMonth: () => {
+            dispatch({ type: 'ADDMONTH'});
         }
     };
 };
@@ -31,7 +31,8 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
     return {
         month: getCurrentMonth(state.CalendarData),
-        daysOfTheWeek: getDaysOfTheWeek(state.CalendarData)
+        daysOfTheWeek: getDaysOfTheWeek(state.CalendarData),
+        monthName: getCurrentMonthName()
     }
     
 }
