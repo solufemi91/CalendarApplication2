@@ -21,6 +21,6 @@ const obj = JSON.parse(data);
 
 render(
     <Provider store={store}>
-        <CalendarContainer serverData={obj} test={obj}/>,
+        <CalendarContainer serverData={obj}/>,
     </Provider>,
     domContainer); 
