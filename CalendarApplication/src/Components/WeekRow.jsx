@@ -9,7 +9,7 @@
 
         this.days = this.state.daysOfTheWeek.map((day, index) =>
             <td className="boxes" key={index}>{day}</td>
-        )
+        );
 
     }
 

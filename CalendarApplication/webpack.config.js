@@ -4,12 +4,16 @@ var webpack = require('webpack');
 module.exports = {
     entry: './src/index.js',
     devtool: 'inline-source-map',
+    mode: 'development',
     output: {
         path: path.resolve(__dirname, './dist'),
         filename: 'bundle.js'
     },
     resolve: {
-        extensions: ['*', '.js', '.jsx']
+        extensions: ['*', '.js', '.jsx'],
+        alias: {
+            react: path.resolve('node_modules/react')
+        }
     },
     module: {
         rules: [
