@@ -1,23 +1,15 @@
-﻿export class WeekRow extends React.Component {
+﻿const WeekRow = (props) => {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            daysOfTheWeek: this.props.days
+    let days = props.days.map((day, index) =>
+        <td className="boxes" key={index}>{day}</td>
+    );
 
-        };
+    return (
+        <tr>
+            {days}
+        </tr>
+    );
 
-        this.days = this.state.daysOfTheWeek.map((day, index) =>
-            <td className="boxes" key={index}>{day}</td>
-        );
-
-    }
-
-    render() {
-        return (
-            <tr>
-                {this.days}
-            </tr>
-        );
-    }
 }
+
+export default WeekRow;

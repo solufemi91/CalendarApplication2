@@ -1,7 +1,7 @@
 ﻿import { TestReducer } from '../Reducers';
 import { render } from 'react-dom'
 import { createStore, compose } from 'redux';
-import { CalendarContainer } from './CalendarContainer';
+import  CalendarContainer  from './CalendarContainer';
 import { Provider } from 'react-redux';
 //import { ErrorBoundary } from './ErrorBoundary';
 
@@ -21,6 +21,6 @@ const obj = JSON.parse(data);
 
 render(
     <Provider store={store}>
-        <CalendarContainer serverData={obj}/>,
+        <CalendarContainer serverData={obj} test={obj}/>,
     </Provider>,
     domContainer); 
