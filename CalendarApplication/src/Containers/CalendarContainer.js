@@ -2,17 +2,13 @@
 import Calendar  from '../Components/Calendar';
 
 const getCurrentMonth = (calendarData) => {
-    let currentMonthName = getCurrentMonthName()
     if (calendarData.Years) {
-        return calendarData.Years[0].Months.filter(m => m.MonthName === currentMonthName)[0].Weeks;
+        return calendarData.Years[0].Months.filter(m => m.visible)[0];
     }
 
     return []    
 };
 
-const getCurrentMonthName = () => {
-    return new Date().toLocaleString('default', { month: 'long' });
-}
 
 const getDaysOfTheWeek = (calendarData) => {
     return calendarData.DaysOfTheWeek
@@ -30,9 +26,9 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
     return {
-        month: getCurrentMonth(state.CalendarData),
+        month: getCurrentMonth(state.CalendarData).Weeks,
         daysOfTheWeek: getDaysOfTheWeek(state.CalendarData),
-        monthName: getCurrentMonthName()
+        monthName: getCurrentMonth(state.CalendarData).MonthName
     }
     
 }
