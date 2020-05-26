@@ -1,13 +1,9 @@
 ﻿const WeekRow = (props) => {
 
-    //let days = props.days.map((day, index) =>
-    //    <td className="boxes" key={index}>{day.number}</td>
-    //);
-
     return (
         <tr>
             {props.days.map((day, index) =>
-                <td id={day.highlight ? "currentDayHighlighted" : ""} className="boxes" key={index}>{day.number}</td>)}
+                <td id={day.highlight ? "currentDayHighlighted" : ""} className="boxes" key={index}>{day.number != 0 ? day.number : ""}</td>)}
         </tr>
     );
 

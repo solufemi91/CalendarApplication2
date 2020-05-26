@@ -15,7 +15,7 @@ export const Reducer = (state = initialState, action) => {
     
     switch (action.type) {
         case 'INIT':
-            return Object.assign({}, state, setTargetMonthToTrueInit(action.data));
+            return Object.assign({}, state, setTodaysMonthOnInit(action.data));
         case 'ADDMONTH':            
             number ++
             return Object.assign({}, state, setTargetMonthToTrue(state, number));
@@ -28,7 +28,8 @@ export const Reducer = (state = initialState, action) => {
 };
 
 
-const setTargetMonthToTrueInit = (data = state, targetMonth = getCurrentMonth() ) => {
+const setTodaysMonthOnInit = (data = state) => {
+    let targetMonth = getCurrentMonth();
     data.CalendarData.Years[0].Months.forEach(m => {
         Object.assign
             (m, { Visible: assignVisibilityForMonth(m, targetMonth) }, { Weeks: setTodaysDate(m) })
@@ -36,6 +37,20 @@ const setTargetMonthToTrueInit = (data = state, targetMonth = getCurrentMonth() 
     )
 
     return data;
+}
+
+const setTodaysDate = (month) => {
+
+    let filteredMonth = month.Weeks.filter(x => x !== null)
+
+    let todaysMonth = filteredMonth.map(week => ({
+        Days: week.Days.map(d => Object.assign({
+            number: d,
+            highlight: (d === new Date().getDate()) && (month.MonthNumber === getCurrentMonth())
+        }))
+    }))
+
+    return todaysMonth
 }
 
 const setTargetMonthToTrue = (data = state, targetMonth = getCurrentMonth() ) => {
@@ -47,20 +62,6 @@ const setTargetMonthToTrue = (data = state, targetMonth = getCurrentMonth() ) =>
     return data;
 }
 
-
-const setTodaysDate = (month) => {
-
-    let filteredMonth = month.Weeks.filter(x => x !== null)
-
-    let newMonth = filteredMonth.map(week => ({
-        Days: week.Days.map(d => Object.assign({
-            number: d,
-            highlight: (d === new Date().getDate()) && (month.MonthNumber === new Date().getMonth() + 1)
-        }))
-    }))
-
-    return newMonth    
-}
 
 const assignVisibilityForMonth = (month, targetMonth) => {
 
