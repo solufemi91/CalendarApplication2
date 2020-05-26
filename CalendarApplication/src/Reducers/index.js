@@ -1,21 +1,27 @@
 ﻿export const initialState = {
     BookingDetails: [],
-    CalendarData: [],
+    CalendarData: {},
     FirstName: "",
     LastName: ""
 };
 
 
 export const TestReducer = (state = initialState, action) => {
+
+    let number
+    if (state.CalendarData.Years) {
+        number = state.CalendarData.Years[0].Months.filter(m => m.visible)[0].MonthNumber;
+    }
+    
     switch (action.type) {
         case 'INIT':
             return Object.assign({}, state, setTargetMonthToTrue(action.data));
-        case 'ADDMONTH':
-            let number = state.CalendarData.Years[0].Months.filter(m => m.visible)[0].MonthNumber;
+        case 'ADDMONTH':            
             number ++
             return Object.assign({}, state, setTargetMonthToTrue(state, number));
         case 'MINUSMONTH':
-            return Object.assign({}, state, setTargetMonthToTrue(action.monthNumber));
+            number --
+            return Object.assign({}, state, setTargetMonthToTrue(state, number));
         default:
             return state;
     }
