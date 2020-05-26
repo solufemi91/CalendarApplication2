@@ -15,23 +15,37 @@ const getDaysOfTheWeek = (calendarData) => {
 }
 
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
     return {
         addMonth: () => {
+            //let currentMonthNumber = getCurrentMonth(state.CalendarData).MonthNumber;
+            //currentMonthNumber++;
             dispatch({ type: 'ADDMONTH'});
+        },
+        minusMonth: () => {
+            //let currentMonthNumber = getCurrentMonth(state.CalendarData).MonthNumber;
+            //currentMonthNumber--;
+            dispatch({ type: 'MINUSMONTH'});
         }
+
     };
 };
 
 
-const mapStateToProps = state => {
-    return {
+//const mapStateToProps = state => {
+//    return {
+//        month: getCurrentMonth(state.CalendarData).Weeks,
+//        daysOfTheWeek: getDaysOfTheWeek(state.CalendarData),
+//        monthName: getCurrentMonth(state.CalendarData).MonthName
+//    }
+    
+//}
+
+const mapStateToProps = state => ({
         month: getCurrentMonth(state.CalendarData).Weeks,
         daysOfTheWeek: getDaysOfTheWeek(state.CalendarData),
         monthName: getCurrentMonth(state.CalendarData).MonthName
-    }
-    
-}
+})
 
 const CalendarContainer = connect(mapStateToProps, mapDispatchToProps)(Calendar);
 

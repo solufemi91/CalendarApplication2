@@ -9,34 +9,38 @@
 export const TestReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'INIT':
-            return Object.assign(state, setCurrentMonthToTrue(action.data));
+            return Object.assign({}, state, setTargetMonthToTrue(action.data));
         case 'ADDMONTH':
-            return state - 1;
+            let number = state.CalendarData.Years[0].Months.filter(m => m.visible)[0].MonthNumber;
+            number ++
+            return Object.assign({}, state, setTargetMonthToTrue(state, number));
+        case 'MINUSMONTH':
+            return Object.assign({}, state, setTargetMonthToTrue(action.monthNumber));
         default:
             return state;
     }
 };
 
 
-const setCurrentMonthToTrue = (data) => {
+const setTargetMonthToTrue = (data = state, targetMonth = getCurrentMonth() ) => {
     data.CalendarData.Years[0].Months.forEach(m => Object.assign
-        (m, { visible: assignVisibilityForMonth(m)})
+        (m, { visible: assignVisibilityForMonth(m, targetMonth)})
     )
 
     return data;
-
 }
 
-const assignVisibilityForMonth = (month) => {
-    let currentMonthName = getCurrentMonthName();
 
-    if (month.MonthName === currentMonthName) {
+
+const assignVisibilityForMonth = (month, targetMonth) => {
+
+    if (month.MonthNumber === targetMonth) {
         return true
     } else {
         return false
     }
 }
 
-const getCurrentMonthName = () => {
-    return new Date().toLocaleString('default', { month: 'long' });
+const getCurrentMonth = () => {
+    return new Date().getMonth() + 1
 }

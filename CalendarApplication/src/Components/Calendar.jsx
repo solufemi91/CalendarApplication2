@@ -1,10 +1,13 @@
 ﻿import  TableHeader  from './TableHeader';
 import  WeekRow  from './WeekRow';
 
-const Calendar = ({ month, monthName, daysOfTheWeek }) => {
+const Calendar = ({ month, monthName, daysOfTheWeek, addMonth, minusMonth }) => {
 
-    let weeks = month.map((week, index) =>
-        <WeekRow days={week.Days} key={index} />
+    let weeks = month.map((week, index) => {
+            if(week){
+                return <WeekRow days={week.Days} key={index} />
+            }           
+        }
     );
 
     let currentDate = new Date().toLocaleDateString();
@@ -13,8 +16,8 @@ const Calendar = ({ month, monthName, daysOfTheWeek }) => {
         <div>
             <h1>{currentDate}</h1>
             <h2>{monthName}</h2>
-            <button type="button">Previous Month</button>
-            <button type="button">Next Month</button>
+            <button onClick={minusMonth} type="button">Previous Month</button>
+            <button onClick={addMonth} type="button">Next Month</button>
             <table>
                 <TableHeader days={daysOfTheWeek} />
                 {weeks}
