@@ -55,7 +55,7 @@ const setTodaysDate = (month) => {
     let newMonth = filteredMonth.map(week => ({
         Days: week.Days.map(d => Object.assign({
             number: d,
-            highlight: d === new Date().getDate()
+            highlight: (d === new Date().getDate()) && (month.MonthNumber === new Date().getMonth() + 1)
         }))
     }))
 

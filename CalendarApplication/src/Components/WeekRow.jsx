@@ -7,7 +7,7 @@
     return (
         <tr>
             {props.days.map((day, index) =>
-                <td className="boxes" key={index}>{day.number}</td>)}
+                <td id={day.highlight ? "currentDayHighlighted" : ""} className="boxes" key={index}>{day.number}</td>)}
         </tr>
     );
 

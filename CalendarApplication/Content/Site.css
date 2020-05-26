@@ -42,3 +42,7 @@ td {
 .boxes {
     border-radius: 5px;
 }
+
+#currentDayHighlighted{
+    background: red;
+}
