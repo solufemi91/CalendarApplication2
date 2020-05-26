@@ -1,12 +1,13 @@
 ﻿const WeekRow = (props) => {
 
-    let days = props.days.map((day, index) =>
-        <td className="boxes" key={index}>{day}</td>
-    );
+    //let days = props.days.map((day, index) =>
+    //    <td className="boxes" key={index}>{day.number}</td>
+    //);
 
     return (
         <tr>
-            {days}
+            {props.days.map((day, index) =>
+                <td className="boxes" key={index}>{day.number}</td>)}
         </tr>
     );
 

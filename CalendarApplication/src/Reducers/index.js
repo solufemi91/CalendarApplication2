@@ -6,16 +6,16 @@
 };
 
 
-export const TestReducer = (state = initialState, action) => {
+export const Reducer = (state = initialState, action) => {
 
     let number
     if (state.CalendarData.Years) {
-        number = state.CalendarData.Years[0].Months.filter(m => m.visible)[0].MonthNumber;
+        number = state.CalendarData.Years[0].Months.filter(m => m.Visible)[0].MonthNumber;
     }
     
     switch (action.type) {
         case 'INIT':
-            return Object.assign({}, state, setTargetMonthToTrue(action.data));
+            return Object.assign({}, state, setTargetMonthToTrueInit(action.data));
         case 'ADDMONTH':            
             number ++
             return Object.assign({}, state, setTargetMonthToTrue(state, number));
@@ -28,15 +28,39 @@ export const TestReducer = (state = initialState, action) => {
 };
 
 
-const setTargetMonthToTrue = (data = state, targetMonth = getCurrentMonth() ) => {
-    data.CalendarData.Years[0].Months.forEach(m => Object.assign
-        (m, { visible: assignVisibilityForMonth(m, targetMonth)})
+const setTargetMonthToTrueInit = (data = state, targetMonth = getCurrentMonth() ) => {
+    data.CalendarData.Years[0].Months.forEach(m => {
+        Object.assign
+            (m, { Visible: assignVisibilityForMonth(m, targetMonth) }, { Weeks: setTodaysDate(m) })
+        }
     )
 
     return data;
 }
 
+const setTargetMonthToTrue = (data = state, targetMonth = getCurrentMonth() ) => {
+    data.CalendarData.Years[0].Months.forEach(m => {
+        Object.assign
+            (m, { Visible: assignVisibilityForMonth(m, targetMonth) })
+        }
+    )
+    return data;
+}
 
+
+const setTodaysDate = (month) => {
+
+    let filteredMonth = month.Weeks.filter(x => x !== null)
+
+    let newMonth = filteredMonth.map(week => ({
+        Days: week.Days.map(d => Object.assign({
+            number: d,
+            highlight: d === new Date().getDate()
+        }))
+    }))
+
+    return newMonth    
+}
 
 const assignVisibilityForMonth = (month, targetMonth) => {
 

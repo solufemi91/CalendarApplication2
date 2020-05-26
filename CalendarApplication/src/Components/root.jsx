@@ -1,17 +1,16 @@
-﻿import { TestReducer } from '../Reducers';
+﻿import { Reducer } from '../Reducers';
 import { render } from 'react-dom'
 import { createStore, compose } from 'redux';
-//import Calendar from './Calendar';
 import CalendarContainer from '../Containers/CalendarContainer';
 import { Provider } from 'react-redux';
-//import { ErrorBoundary } from './ErrorBoundary';
+
 
 const enhancers = compose(
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 const store = createStore(
-    TestReducer, enhancers
+    Reducer, enhancers
 );
 
 const domContainer = document.getElementById('calendarContainer');

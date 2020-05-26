@@ -5,7 +5,7 @@ const Calendar = ({ month, monthName, daysOfTheWeek, addMonth, minusMonth }) => 
 
     let weeks = month.map((week, index) => {
             if(week){
-                return <WeekRow days={week.Days} key={index} />
+                return <WeekRow monthName={monthName} days={week.Days} key={index} />
             }           
         }
     );
