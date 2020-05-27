@@ -198,6 +198,7 @@
     <Content Include="src\Components\Calendar.jsx" />
     <Content Include="src\Components\ErrorBoundary.js" />
     <Content Include="src\Containers\CalendarContainer.js" />
+    <Content Include="src\Containers\WeekRowContainer.js" />
     <Content Include="src\Reducers\index.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

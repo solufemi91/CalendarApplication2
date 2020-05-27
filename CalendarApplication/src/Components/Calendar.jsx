@@ -1,11 +1,12 @@
 ﻿import  TableHeader  from './TableHeader';
-import  WeekRow  from './WeekRow';
+import WeekRow from './WeekRow';
+import WeekRowContainer from '../Containers/WeekRowContainer'
 
 const Calendar = ({ month, monthName, daysOfTheWeek, addMonth, minusMonth }) => {
 
     let weeks = month.map((week, index) => {
             if(week){
-                return <WeekRow monthName={monthName} days={week.Days} key={index} />
+                return <WeekRowContainer monthName={monthName} days={week.Days} key={index} />
             }           
         }
     );
