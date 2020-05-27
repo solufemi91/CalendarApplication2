@@ -15,45 +15,50 @@ export const Reducer = (state = initialState, action) => {
     
     switch (action.type) {
         case 'INIT':
-            return Object.assign({}, state, setTodaysMonthOnInit(action.data));
+            return Object.assign({}, state, setTodaysDateOnInit(action.data));
         case 'ADDMONTH':            
             number ++
-            return Object.assign({}, state, setTargetMonthToTrue(state, number));
+            return Object.assign({}, state, setTargetMonthVisibility(state, number));
         case 'MINUSMONTH':
             number --
-            return Object.assign({}, state, setTargetMonthToTrue(state, number));
+            return Object.assign({}, state, setTargetMonthVisibility(state, number));
         default:
             return state;
     }
 };
 
 
-const setTodaysMonthOnInit = (data = state) => {
+const setTodaysDateOnInit = (data = state) => {
     let targetMonth = getCurrentMonth();
     data.CalendarData.Years[0].Months.forEach(m => {
         Object.assign
-            (m, { Visible: assignVisibilityForMonth(m, targetMonth) }, { Weeks: setTodaysDate(m) })
+            (m, { Visible: assignVisibilityForMonth(m, targetMonth) }, { Weeks: hydrateDayInstance(m, data.BookingDetails) })
         }
     )
 
     return data;
 }
 
-const setTodaysDate = (month) => {
+const hydrateDayInstance = (month, bookingDetails) => {
 
     let filteredMonth = month.Weeks.filter(x => x !== null)
 
     let todaysMonth = filteredMonth.map(week => ({
         Days: week.Days.map(d => Object.assign({
             number: d,
-            highlight: (d === new Date().getDate()) && (month.MonthNumber === getCurrentMonth())
+            highlight: (d === new Date().getDate()) && (month.MonthNumber === getCurrentMonth()),
+            bookingDetails: bookingDetails.filter(b => (dateConverter(b.Date).getDate() === d) && (dateConverter(b.Date).getMonth() + 1 === month.MonthNumber))
         }))
     }))
 
     return todaysMonth
 }
 
-const setTargetMonthToTrue = (data = state, targetMonth = getCurrentMonth() ) => {
+const dateConverter = (date) => {
+    return new Date(parseInt(date.substr(6)))
+}
+
+const setTargetMonthVisibility = (data = state, targetMonth) => {
     data.CalendarData.Years[0].Months.forEach(m => {
         Object.assign
             (m, { Visible: assignVisibilityForMonth(m, targetMonth) })
