@@ -69,7 +69,8 @@ const openModal = (data, number) => {
         }))
     }))
 
-    return data;
+    return JSON.parse(JSON.stringify(data))
+
 }
 
 const updateModalState = (day, number) => {
