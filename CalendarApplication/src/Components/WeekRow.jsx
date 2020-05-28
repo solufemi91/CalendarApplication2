@@ -1,17 +1,13 @@
 ﻿const WeekRow = (props) => {
 
- 
-
     let html = props.days.map((day, index) => {
             let events = day.bookingDetails.map((bk, index) => {
                 if (bk) {
-
-                 
                     return <div>
-                        <p key={index}>
+                        <p key={index}>                          
                             <a onClick={() => props.openModal(day.number)}>{bk.EventName}</a>
                         </p>
-                        <div id="myModal" class="modal" style={{display: bk.ModalState}}>
+                        <div id="myModal" class="modal" style={{display: bk.OpenModal ? "block" : "none"}}>
 
                             <div class="modal-content">
                                 <span class="close">&times;</span>
@@ -26,7 +22,6 @@
                    
                 }
             })
-
 
             return <td id={day.highlight ? "currentDayHighlighted" : ""} className="boxes" key={index}>
                 {day.number != 0 ? day.number : ""} 

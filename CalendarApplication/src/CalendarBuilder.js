@@ -20,7 +20,7 @@ export class CalendarBuilder {
             weekList.push(this.GetWeek(monthNumber, year))
         }
 
-        let monthName = new Date(2007, monthNumber - 1, 10).toLocaleString('default', { month: 'long' });
+        let monthName = new Date(year, monthNumber - 1, 1).toLocaleString('default', { month: 'long' });
 
         let month = {
             MonthNumber: monthNumber,
