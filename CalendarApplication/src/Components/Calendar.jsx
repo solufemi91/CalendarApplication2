@@ -1,5 +1,4 @@
 ﻿import  TableHeader  from './TableHeader';
-import WeekRow from './WeekRow';
 import WeekRowContainer from '../Containers/WeekRowContainer'
 
 const Calendar = ({ month, monthName, daysOfTheWeek, addMonth, minusMonth }) => {

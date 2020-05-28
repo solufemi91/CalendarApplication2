@@ -2,8 +2,8 @@
 import Calendar  from '../Components/Calendar';
 
 const getCurrentMonth = (calendarData) => {
-    if (calendarData.Years) {
-        return calendarData.Years[0].Months.filter(m => m.Visible)[0];
+    if (calendarData.Months) {
+        return calendarData.Months.filter(m => m.Visible)[0];
     }
 
     return []    

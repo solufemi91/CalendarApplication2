@@ -30,19 +30,19 @@ namespace CalendarApplication.ModelBuilder
             {
                 FirstName = result.FirstOrDefault().FirstName,
                 LastName = result.FirstOrDefault().LastName,
-                BookingDetails = result,
-                CalendarData = GetCalendarData()
+                BookingDetails = result
+                //CalendarData = GetCalendarData()
             };
            
             return model;
         }
 
-        private Calendar GetCalendarData()
-        {
-            var year = _calendarWrapper.GetCurrentYearData();
+        //private Calendar GetCalendarData()
+        //{
+        //    var year = _calendarWrapper.GetCurrentYearData();
 
-            return year;
+        //    return year;
 
-        }
+        //}
     }
 }

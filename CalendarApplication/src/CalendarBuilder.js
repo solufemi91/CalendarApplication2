@@ -1,4 +1,4 @@
-﻿class CalendarBuilder {
+﻿export class CalendarBuilder {
 
     GetYear(yearNumber) {
         let monthNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
@@ -31,7 +31,7 @@
 
     GetWeek(monthNumber, year) {
         if (Date.parse(`${year}/${monthNumber}/${this.dateNumber}`)) {
-            let days = []
+            let days = [0,0,0,0,0,0,0]
             let indexPositionOfDate = 0;
 
             for (let dayDateNumber = this.dateNumber;

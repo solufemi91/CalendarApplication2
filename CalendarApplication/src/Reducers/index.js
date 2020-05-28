@@ -1,4 +1,6 @@
-﻿export const initialState = {
+﻿import { CalendarBuilder } from '../CalendarBuilder';
+
+export const initialState = {
     BookingDetails: [],
     CalendarData: {},
     FirstName: "",
@@ -9,34 +11,37 @@
 export const Reducer = (state = initialState, action) => {
 
     let number
-    if (state.CalendarData.Years) {
-        number = state.CalendarData.Years[0].Months.filter(m => m.Visible)[0].MonthNumber;
+    if (state.CalendarData.Months) {
+        number = state.CalendarData.Months.find(m => m.Visible).MonthNumber;
     }
     
     switch (action.type) {
         case 'INIT':
-            return Object.assign({}, state, setTodaysDateOnInit(action.data));
+            return Object.assign({}, state, updateCalenderUI(action.data));
         case 'ADDMONTH':            
             number ++
-            return Object.assign({}, state, setTargetMonthVisibility(state, number));
+            return Object.assign({}, state, updateCalenderUI(state, number));
         case 'MINUSMONTH':
             number --
-            return Object.assign({}, state, setTargetMonthVisibility(state, number));
+            return Object.assign({}, state, updateCalenderUI(state, number));
         default:
             return state;
     }
 };
 
-
-const setTodaysDateOnInit = (data = state) => {
-    let targetMonth = getCurrentMonth();
-    data.CalendarData.Years[0].Months.forEach(m => {
+const updateCalenderUI = (data, targetMonth = getCurrentMonth()) => {
+    let calendarBuilder = new CalendarBuilder
+    let currentYear = new Date().getFullYear()
+ 
+    let calendarData = calendarBuilder.GetYear(currentYear);
+    calendarData.DaysOfTheWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    calendarData.Months.forEach(m => {
         Object.assign
-            (m, { Visible: assignVisibilityForMonth(m, targetMonth) }, { Weeks: hydrateDayInstance(m, data.BookingDetails) })
+            (m, { Visible: m.MonthNumber === targetMonth }, { Weeks: hydrateDayInstance(m, data.BookingDetails) })
         }
     )
 
-    return data;
+    return Object.assign(data, { CalendarData: calendarData })
 }
 
 const hydrateDayInstance = (month, bookingDetails) => {
@@ -58,25 +63,10 @@ const dateConverter = (date) => {
     return new Date(parseInt(date.substr(6)))
 }
 
-const setTargetMonthVisibility = (data = state, targetMonth) => {
-    data.CalendarData.Years[0].Months.forEach(m => {
-        Object.assign
-            (m, { Visible: assignVisibilityForMonth(m, targetMonth) })
-        }
-    )
-    return data;
-}
-
-
-const assignVisibilityForMonth = (month, targetMonth) => {
-
-    if (month.MonthNumber === targetMonth) {
-        return true
-    } else {
-        return false
-    }
-}
-
 const getCurrentMonth = () => {
     return new Date().getMonth() + 1
 }
+
+
+
+
