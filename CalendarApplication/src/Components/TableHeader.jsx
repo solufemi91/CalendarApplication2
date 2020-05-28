@@ -1,16 +1,26 @@
-﻿const TableHeader = (props) => {
+﻿class TableHeader extends React.Component {
 
-    let tableHeaderBoxes = props.days.map((day, index) =>
-        <td className="boxes" key={index}>{day}</td>
-    );
+    constructor(props) {
 
-    return (
-        <thead>
-            <tr>
-                {tableHeaderBoxes}
-            </tr>
-        </thead>
-    );
+        super(props);
+
+        this.tableHeaderBoxes = this.props.days.map((day, index) =>
+            <td className="boxes" key={index}>{day}</td>
+        );
+    }
+
+
+    render() {
+        return (
+            <thead>
+                <tr>
+                    {this.tableHeaderBoxes}
+                </tr>
+            </thead>
+        );
+    }
+
+ 
 }
 
 export default TableHeader;

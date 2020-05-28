@@ -1,29 +1,33 @@
-﻿import  TableHeader  from './TableHeader';
-import WeekRowContainer from '../Containers/WeekRowContainer'
+﻿import TableHeader from './TableHeader';
+import WeekRow from './WeekRow';
+import React from 'react'
 
-const Calendar = ({ month, monthName, daysOfTheWeek, addMonth, minusMonth }) => {
 
-    let weeks = month.map((week, index) => {
-            if(week){
-                return <WeekRowContainer monthName={monthName} days={week.Days} key={index} />
-            }           
-        }
-    );
+class Calendar extends React.Component {
 
-    let currentDate = new Date().toLocaleDateString();
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+           return (
+                <div>
+                   <h1>{this.currentDate}</h1>
+                   <h2>{this.props.monthName}</h2>
+                   <button onClick={this.props.minusMonth} type="button">Previous Month</button>
+                   <button onClick={this.props.addMonth} type="button">Next Month</button>
+                    <table>
+                        <TableHeader days={this.props.daysOfTheWeek} />
+                       {this.props.month.map((week, index) => {
+                           if (week) {
+                               return <WeekRow openModal={this.props.openModal} closeModal={this.props.closeModal} monthName={this.props.monthName} days={week.Days} key={index} />
+                           }
+                       })}
+                    </table>
+                </div>
+            );
+    }
  
-    return (
-        <div>
-            <h1>{currentDate}</h1>
-            <h2>{monthName}</h2>
-            <button onClick={minusMonth} type="button">Previous Month</button>
-            <button onClick={addMonth} type="button">Next Month</button>
-            <table>
-                <TableHeader days={daysOfTheWeek} />
-                {weeks}
-            </table>
-        </div>
-    );
 }
 
 export default Calendar;
