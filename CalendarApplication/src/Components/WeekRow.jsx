@@ -17,7 +17,7 @@
                                 <div id="myModal" class="modal" style={{ display: bk.OpenModal ? "block" : "none" }}>
 
                                     <div class="modal-content">
-                                        <span class="close">&times;</span>
+                                        <span onClick={() => this.props.closeModal(day.number)} class="close">&times;</span>
                                         <p>Location: {bk.Location}</p>
                                         <p>Description: {bk.Description}</p>
                                         <p>Start time: {Date(parseInt(bk.StartTime.substr(6)))}</p>

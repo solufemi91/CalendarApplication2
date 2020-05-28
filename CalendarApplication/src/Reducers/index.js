@@ -25,7 +25,9 @@ export const Reducer = (state = initialState, action) => {
             number --
             return Object.assign({}, state, updateCalenderUI(state, number));
         case 'OPENMODAL':
-            return Object.assign({}, state, openModal(state, action.dayNumber));
+            return Object.assign({}, state, setModal(state, action.dayNumber, 'Open'));
+        case 'CLOSEMODAL':
+            return Object.assign({}, state, setModal(state, action.dayNumber));
         default:
             return state;
     }
@@ -59,13 +61,13 @@ const hydrateDayInstance = (month, bookingDetails) => {
 }
 
 
-const openModal = (data, number) => {
+const setModal = (data, number, modalAction = null) => {
    
     data.CalendarData.Weeks.map(week => ({
         Days: week.Days.map(d => Object.assign({
             number: d.number,
             highlight: d.highlight,
-            bookingDetails: updateModalState(d, number)
+            bookingDetails: updateModalState(d, number, modalAction)
         }))
     }))
 
@@ -73,17 +75,29 @@ const openModal = (data, number) => {
 
 }
 
-const updateModalState = (day, number) => {
-    if (day.number === number) {
-        day.bookingDetails[0].OpenModal = true
-        return day.bookingDetails[0]
-    }
-    else {
-        if (day.bookingDetails.length) {
+const updateModalState = (day, number, modalAction) => {
+
+    if (modalAction === "Open") {
+        if (day.number === number) {
+            day.bookingDetails[0].OpenModal = true
+            return day.bookingDetails[0]
+        }
+        else {
+            if (day.bookingDetails.length) {
+                day.bookingDetails[0].OpenModal = false
+            }
+            return day.bookingDetails[0]
+        }
+    } else {
+        if (day.number === number) {
             day.bookingDetails[0].OpenModal = false
-        }       
-        return day.bookingDetails[0]
+            return day.bookingDetails[0]
+        } else {
+            return day.bookingDetails[0]
+        }
+          
     }
+   
 }
 
 const dateConverter = (date) => {
