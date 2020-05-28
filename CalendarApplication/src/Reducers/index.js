@@ -11,8 +11,8 @@ export const initialState = {
 export const Reducer = (state = initialState, action) => {
 
     let number
-    if (state.CalendarData.Months) {
-        number = state.CalendarData.Months.find(m => m.Visible).MonthNumber;
+    if (state.CalendarData.Weeks) {
+        number = state.CalendarData.MonthNumber;
     }
     
     switch (action.type) {
@@ -30,17 +30,14 @@ export const Reducer = (state = initialState, action) => {
 };
 
 const updateCalenderUI = (data, targetMonth = getCurrentMonth()) => {
-    let calendarBuilder = new CalendarBuilder
-    let currentYear = new Date().getFullYear()
- 
-    let calendarData = calendarBuilder.GetYear(currentYear);
-    calendarData.DaysOfTheWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-    calendarData.Months.forEach(m => {
-        Object.assign
-            (m, { Visible: m.MonthNumber === targetMonth }, { Weeks: hydrateDayInstance(m, data.BookingDetails) })
-        }
-    )
+    let calendarBuilder = new CalendarBuilder();
+    let currentYear = new Date().getFullYear();
 
+    let calendarData = calendarBuilder.GetMonth(targetMonth, currentYear);
+ 
+    calendarData.DaysOfTheWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    calendarData.Weeks = hydrateDayInstance(calendarData, data.BookingDetails) 
+     
     return Object.assign(data, { CalendarData: calendarData })
 }
 

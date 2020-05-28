@@ -1,4 +1,6 @@
-﻿export class CalendarBuilder {
+﻿import moment from 'Moment';
+
+export class CalendarBuilder {
 
     GetYear(yearNumber) {
         let monthNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
@@ -29,13 +31,18 @@
         return month;
     }
 
+    IsValidDate(year, month, day) {
+        var m = moment(`${year}-${month}-${day}`, 'YYYY-MM-DD');
+        return m.isValid(); 
+    }
+
     GetWeek(monthNumber, year) {
-        if (Date.parse(`${year}/${monthNumber}/${this.dateNumber}`)) {
+        if (this.IsValidDate(year, monthNumber, this.dateNumber)) {
             let days = [0,0,0,0,0,0,0]
             let indexPositionOfDate = 0;
 
             for (let dayDateNumber = this.dateNumber;
-                (Date.parse(`${year}/${monthNumber}/${this.dateNumber}`) !== NaN) && (indexPositionOfDate < 6);
+                (this.IsValidDate(year, monthNumber, this.dateNumber)) && (indexPositionOfDate < 6);
                 dayDateNumber++) {
 
                 let date = new Date(year, monthNumber - 1, this.dateNumber);

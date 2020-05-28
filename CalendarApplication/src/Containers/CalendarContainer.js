@@ -1,19 +1,6 @@
 ﻿import { connect } from 'react-redux';
 import Calendar  from '../Components/Calendar';
 
-const getCurrentMonth = (calendarData) => {
-    if (calendarData.Months) {
-        return calendarData.Months.filter(m => m.Visible)[0];
-    }
-
-    return []    
-};
-
-
-const getDaysOfTheWeek = (calendarData) => {
-    return calendarData.DaysOfTheWeek
-}
-
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -29,9 +16,9 @@ const mapDispatchToProps = (dispatch) => {
 
 
 const mapStateToProps = state => ({
-        month: getCurrentMonth(state.CalendarData).Weeks,
-        daysOfTheWeek: getDaysOfTheWeek(state.CalendarData),
-        monthName: getCurrentMonth(state.CalendarData).MonthName
+        month: state.CalendarData.Weeks,
+        daysOfTheWeek: state.CalendarData.DaysOfTheWeek,
+        monthName: state.CalendarData.MonthName
 })
 
 const CalendarContainer = connect(mapStateToProps, mapDispatchToProps)(Calendar);

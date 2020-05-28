@@ -10,6 +10,7 @@
     "babel-preset-react": "^6.24.1",
     "bufferutil": "^4.0.1",
     "copy-webpack-plugin": "^6.0.1",
+    "moment": "^2.26.0",
     "react-dom": "^16.11.0",
     "react-native": "^0.62.2",
     "redux": "^4.0.5",
