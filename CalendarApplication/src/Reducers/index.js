@@ -1,4 +1,5 @@
 ﻿import { CalendarBuilder } from '../CalendarBuilder';
+import { cloneDeep } from "lodash";
 
 export const initialState = {
     BookingDetails: [],
@@ -25,7 +26,9 @@ export const Reducer = (state = initialState, action) => {
             number --
             return Object.assign({}, state, updateCalenderUI(state, number));
         case 'OPENMODAL':
-            return Object.assign({}, state, setModal(state, action.dayNumber, 'Open'));
+            let clonedState = cloneDeep(state);
+            let result = setModal(clonedState, action.dayNumber, 'Open')
+            return Object.assign({}, state, result);
         case 'CLOSEMODAL':
             return Object.assign({}, state, setModal(state, action.dayNumber));
         default:
@@ -71,7 +74,7 @@ const setModal = (data, number, modalAction = null) => {
         }))
     }))
 
-    return JSON.parse(JSON.stringify(data))
+    return cloneDeep(data);
 
 }
 
