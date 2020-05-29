@@ -11,7 +11,6 @@ const mapDispatchToProps = (dispatch) => {
             dispatch({ type: 'MINUSMONTH'});
         },
         openModal: dayNumber => {
-            console.log(dayNumber)
             dispatch({ type: 'OPENMODAL', dayNumber: dayNumber });
         },
         closeModal: dayNumber => {

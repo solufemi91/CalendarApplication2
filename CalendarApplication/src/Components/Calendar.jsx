@@ -17,12 +17,14 @@ class Calendar extends React.Component {
                    <button onClick={this.props.minusMonth} type="button">Previous Month</button>
                    <button onClick={this.props.addMonth} type="button">Next Month</button>
                     <table>
-                        <TableHeader days={this.props.daysOfTheWeek} />
-                       {this.props.month.map((week, index) => {
-                           if (week) {
-                               return <WeekRow openModal={this.props.openModal} closeModal={this.props.closeModal} monthName={this.props.monthName} days={week.Days} key={index} />
-                           }
-                       })}
+                       <TableHeader days={this.props.daysOfTheWeek} />
+                       <tbody>
+                           {this.props.month.map((week, index) => {
+                               if (week) {
+                                   return <WeekRow openModal={this.props.openModal} closeModal={this.props.closeModal} monthName={this.props.monthName} days={week.Days} key={index} />
+                               }
+                           })}
+                       </tbody>
                     </table>
                 </div>
             );

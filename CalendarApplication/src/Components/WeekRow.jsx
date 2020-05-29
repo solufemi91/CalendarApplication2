@@ -10,14 +10,14 @@
                 {this.props.days.map((day, index) => {
                     let events = day.bookingDetails.map((bk, index) => {
                         if (bk) {
-                            return <div>
-                                <p key={index}>
+                            return <div key={index}>
+                                <p>
                                     <a onClick={() => this.props.openModal(day.number)}>{bk.EventName}</a>
                                 </p>
-                                <div id="myModal" class="modal" style={{ display: bk.OpenModal ? "block" : "none" }}>
+                                <div id="myModal" className="modal" style={{ display: bk.OpenModal ? "block" : "none" }}>
 
-                                    <div class="modal-content">
-                                        <span onClick={() => this.props.closeModal(day.number)} class="close">&times;</span>
+                                    <div className="modal-content">
+                                        <span onClick={() => this.props.closeModal(day.number)} className="close">&times;</span>
                                         <p>Location: {bk.Location}</p>
                                         <p>Description: {bk.Description}</p>
                                         <p>Start time: {Date(parseInt(bk.StartTime.substr(6)))}</p>
