@@ -15,12 +15,10 @@ namespace CalendarApplication.ModelBuilder
     public class UserHomePageModelBuilder : IUserHomePageModelBuilder
     {
         private readonly IAccountWrapper _accountWrapper;
-        private readonly ICalendarWrapper _calendarWrapper;
 
-        public UserHomePageModelBuilder(IAccountWrapper accountWrapper, ICalendarWrapper calendarWrapper)
+        public UserHomePageModelBuilder(IAccountWrapper accountWrapper)
         {
             _accountWrapper = accountWrapper;
-            _calendarWrapper = calendarWrapper;
         }
 
         public UserHomePageModel GetModel(int? id)
@@ -31,18 +29,9 @@ namespace CalendarApplication.ModelBuilder
                 FirstName = result.FirstOrDefault().FirstName,
                 LastName = result.FirstOrDefault().LastName,
                 BookingDetails = result
-                //CalendarData = GetCalendarData()
             };
            
             return model;
         }
-
-        //private Calendar GetCalendarData()
-        //{
-        //    var year = _calendarWrapper.GetCurrentYearData();
-
-        //    return year;
-
-        //}
     }
 }
