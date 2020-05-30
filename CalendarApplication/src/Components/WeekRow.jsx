@@ -20,8 +20,8 @@
                                         <span onClick={() => this.props.closeModal(day.number)} className="close">&times;</span>
                                         <p>Location: {bk.Location}</p>
                                         <p>Description: {bk.Description}</p>
-                                        <p>Start time: {Date(parseInt(bk.StartTime.substr(6)))}</p>
-                                        <p>End time: {Date(parseInt(bk.EndTime.substr(6)))}</p>
+                                        <p>Start time: {bk.StartTime}</p>
+                                        <p>End time: {bk.EndTime}</p>
                                     </div>
 
                                 </div>

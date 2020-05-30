@@ -8,10 +8,10 @@ export const initialState = {
     LastName: ""
 };
 
-
 export const Reducer = (state = initialState, action) => {
 
-    let number
+    let number;
+
     if (state.CalendarData.Weeks) {
         number = state.CalendarData.MonthNumber;
     }
@@ -20,21 +20,33 @@ export const Reducer = (state = initialState, action) => {
         case 'INIT':
             return Object.assign({}, state, updateCalenderUI(action.data));
         case 'ADDMONTH':            
-            number ++
-            return Object.assign({}, state, updateCalenderUI(state, number));
+            number++
+            return Object.assign({}, state, { CalendarData: mutateClonedCalenderState(state, number) });
         case 'MINUSMONTH':
-            number --
-            return Object.assign({}, state, updateCalenderUI(state, number));
+            number--
+            return Object.assign({}, state, { CalendarData: mutateClonedCalenderState(state, number) });
         case 'OPENMODAL':
-            let clonedState = cloneDeep(state);
-            let result = setModal(clonedState, action.dayNumber, 'Open')
-            return Object.assign({}, state, result);
+            return Object.assign({}, state, { CalendarData: mutateClonedModalState(state, action.dayNumber, 'Open') });
         case 'CLOSEMODAL':
-            return Object.assign({}, state, setModal(state, action.dayNumber));
+            return Object.assign({}, state, { CalendarData: mutateClonedModalState(state, action.dayNumber) } );
         default:
             return state;
     }
 };
+
+const mutateClonedCalenderState = (state, monthNumber) => {
+    let clonedState = cloneDeep(state);
+    let result = updateCalenderUI(clonedState, monthNumber);
+
+    return result.CalendarData
+}
+
+const mutateClonedModalState = (state, dayNumber, modalState = null) => {
+    let clonedState = cloneDeep(state);
+    let result = setModal(clonedState, dayNumber, modalState)
+
+    return result.CalendarData
+}
 
 const updateCalenderUI = (data, targetMonth = getCurrentMonth()) => {
     let calendarBuilder = new CalendarBuilder();
@@ -56,13 +68,29 @@ const hydrateDayInstance = (month, bookingDetails) => {
         Days: week.Days.map(d => Object.assign({}, d ,{
             number: d,
             highlight: (d === new Date().getDate()) && (month.MonthNumber === getCurrentMonth()),
-            bookingDetails: bookingDetails.filter(b => (dateConverter(b.Date).getDate() === d) && (dateConverter(b.Date).getMonth() + 1 === month.MonthNumber))
+            bookingDetails: hydrateBookingDetails(d, month, bookingDetails)
         }))
     }))
 
     return todaysMonth
 }
 
+const hydrateBookingDetails = (dayNumber, month, bookingDetails) => {
+    let result = bookingDetails.filter(b => (dateConverter(b.Date).getDate() === dayNumber) && (dateConverter(b.Date).getMonth() + 1 === month.MonthNumber))
+
+    if (result.length > 0) {
+        result.forEach((bk) => {
+            let startTime = new Date(parseInt(bk.StartTime.substr(6)));
+            let endTime = new Date(parseInt(bk.EndTime.substr(6)));
+            bk.StartTime = `${startTime.getDate()}/${startTime.getMonth()+1}/${startTime.getFullYear()}`
+            bk.EndTime = `${endTime.getDate()}/${endTime.getMonth() + 1}/${endTime.getFullYear()}`
+        })
+
+        return result
+    } else {
+        return []
+    }
+}
 
 const setModal = (data, number, modalAction = null) => {
    
