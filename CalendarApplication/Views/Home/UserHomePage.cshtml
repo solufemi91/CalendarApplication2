@@ -4,7 +4,9 @@
 
 @using System.Web.Script.Serialization;
 
-@{ var obj = new JavaScriptSerializer().Serialize(Model); }
+@{ 
+    var obj = new JavaScriptSerializer().Serialize(Model);
+}
 
 @model CalendarApplication.Models.UserHomePageModel
 <div class="jumbotron">

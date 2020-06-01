@@ -1,6 +1,7 @@
 ﻿import TableHeader from './TableHeader';
 import WeekRow from './WeekRow';
-import React from 'react'
+import BookedModal from './BookedModal';
+import React from 'react';
 
 
 class Calendar extends React.Component {
@@ -16,7 +17,7 @@ class Calendar extends React.Component {
                    <h2>{this.props.monthName}</h2>
                    <button onClick={this.props.minusMonth} type="button">Previous Month</button>
                    <button onClick={this.props.addMonth} type="button">Next Month</button>
-                    <table>
+                   <table>
                        <TableHeader days={this.props.daysOfTheWeek} />
                        <tbody>
                            {this.props.month.map((week, index) => {
@@ -25,7 +26,13 @@ class Calendar extends React.Component {
                                }
                            })}
                        </tbody>
-                    </table>
+                   </table>
+
+                       {this.props.days.map((d, index) => {
+                           return <BookedModal key={index} day={d} closeModal={this.props.closeModal} /> 
+                       })}                                         
+
+                   
                 </div>
             );
     }

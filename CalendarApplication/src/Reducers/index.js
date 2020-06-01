@@ -108,7 +108,7 @@ const setModal = (data, number, modalAction = null) => {
 
 const updateModalState = (day, number, modalAction) => {
 
-    if (modalAction === "Open") {
+    if (modalAction === "Open" && day.bookingDetails.length > 0) {
         if (day.number === number) {
             day.bookingDetails[0].OpenModal = true
             return day.bookingDetails[0]
@@ -119,7 +119,7 @@ const updateModalState = (day, number, modalAction) => {
             }
             return day.bookingDetails[0]
         }
-    } else {
+    } else if (day.bookingDetails.length > 0) {
         if (day.number === number) {
             day.bookingDetails[0].OpenModal = false
             return day.bookingDetails[0]
