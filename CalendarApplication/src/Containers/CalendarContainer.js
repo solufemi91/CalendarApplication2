@@ -1,10 +1,10 @@
 ﻿import { connect } from 'react-redux';
 import Calendar  from '../Components/Calendar';
 
-const getDays = (weeks) => {
+const getDaysWithModals = (weeks) => {
     let bookedDays = []
     weeks.forEach((w) => {
-        let result = w.Days.filter(d => d.bookingDetails.length > 0);
+        let result = w.Days.filter(day => day.openNewModal || day.bookingDetails.length > 0);
         bookedDays.push(...result)
     })
 
@@ -36,7 +36,7 @@ const mapStateToProps = (state) => {
         month: state.CalendarData.Weeks,
         daysOfTheWeek: state.CalendarData.DaysOfTheWeek,
         monthName: state.CalendarData.MonthName,
-        days: getDays(state.CalendarData.Weeks)
+        days: getDaysWithModals(state.CalendarData.Weeks)
     }       
 }
 

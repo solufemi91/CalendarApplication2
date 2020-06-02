@@ -98,7 +98,8 @@ const setModal = (data, number, modalAction = null) => {
         Days: week.Days.map(d => ({
             number: d.number,
             highlight: d.highlight,
-            bookingDetails: updateModalState(d, number, modalAction)
+            bookingDetails: updateModalState(d, number, modalAction),
+            openNewModal: (d.number === number) && modalAction != null
         }))
     }))
 
