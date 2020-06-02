@@ -28,9 +28,9 @@ class Calendar extends React.Component {
                        </tbody>
                    </table>
 
-                       {this.props.days.map((d, index) => {
-                           return <BookedModal key={index} day={d} closeModal={this.props.closeModal} /> 
-                       })}                                         
+                       {this.props.days.map((d, index) => 
+                           <BookedModal key={index} day={d} closeModal={this.props.closeModal} /> 
+                       )}                                         
 
                    
                 </div>

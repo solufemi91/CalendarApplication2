@@ -65,7 +65,7 @@ const hydrateDayInstance = (month, bookingDetails) => {
     let filteredMonth = month.Weeks.filter(x => x !== null)
 
     let todaysMonth = filteredMonth.map(week => ({
-        Days: week.Days.map(d => Object.assign({}, d ,{
+        Days: week.Days.map(d => ({
             number: d,
             highlight: (d === new Date().getDate()) && (month.MonthNumber === getCurrentMonth()),
             bookingDetails: hydrateBookingDetails(d, month, bookingDetails)
@@ -94,13 +94,15 @@ const hydrateBookingDetails = (dayNumber, month, bookingDetails) => {
 
 const setModal = (data, number, modalAction = null) => {
    
-    data.CalendarData.Weeks.map(week => ({
-        Days: week.Days.map(d => Object.assign({
+    let newWeeksArray = data.CalendarData.Weeks.map(week => ({
+        Days: week.Days.map(d => ({
             number: d.number,
             highlight: d.highlight,
             bookingDetails: updateModalState(d, number, modalAction)
         }))
     }))
+
+    data.CalendarData.Weeks = [...newWeeksArray]
 
     return cloneDeep(data);
 
@@ -111,22 +113,25 @@ const updateModalState = (day, number, modalAction) => {
     if (modalAction === "Open" && day.bookingDetails.length > 0) {
         if (day.number === number) {
             day.bookingDetails[0].OpenModal = true
-            return day.bookingDetails[0]
+            return [day.bookingDetails[0]]
         }
         else {
             if (day.bookingDetails.length) {
                 day.bookingDetails[0].OpenModal = false
             }
-            return day.bookingDetails[0]
+            return [day.bookingDetails[0]]
         }
-    } else if (day.bookingDetails.length > 0) {
+    }
+    else if (day.bookingDetails.length > 0) {
         if (day.number === number) {
             day.bookingDetails[0].OpenModal = false
-            return day.bookingDetails[0]
+            return [day.bookingDetails[0]]
         } else {
-            return day.bookingDetails[0]
+            return [day.bookingDetails[0]]
         }
-          
+
+    } else {
+        return []
     }
    
 }
