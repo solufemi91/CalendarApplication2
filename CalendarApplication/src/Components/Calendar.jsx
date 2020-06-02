@@ -1,6 +1,6 @@
 ﻿import TableHeader from './TableHeader';
 import WeekRow from './WeekRow';
-import BookedModal from './BookedModal';
+import BookingModal from './BookingModal';
 import React from 'react';
 
 
@@ -29,7 +29,7 @@ class Calendar extends React.Component {
                    </table>
 
                        {this.props.days.map((d, index) => 
-                           <BookedModal key={index} day={d} closeModal={this.props.closeModal} /> 
+                           <BookingModal key={index} day={d} closeModal={this.props.closeModal} /> 
                        )}                                         
 
                    

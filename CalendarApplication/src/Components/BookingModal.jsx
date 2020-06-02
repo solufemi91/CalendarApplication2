@@ -1,4 +1,4 @@
-﻿class BookedModal extends React.Component {
+﻿class BookingModal extends React.Component {
 
     constructor(props) {
         super(props)
@@ -25,7 +25,13 @@
                 <div id="myModal" className="modal" style={{ display: this.props.day.openNewModal ? "block" : "none" }}>
                     <div className="modal-content">
                         <span onClick={() => this.props.closeModal(this.props.day.number)} className="close">&times;</span>
-                        test
+                        <form action="/action_page.php">
+                            <label>First name:</label>
+                            <input type="text" id="fname" name="fname" value="John"></input>
+                            <label>Last name:</label>
+                            <input type="text" id="lname" name="lname" value="Doe"></input>
+                            <input type="submit" value="Submit"></input>
+                        </form> 
                     </div>    
                 </div>
             )
@@ -34,4 +40,4 @@
     }
 }
 
-export default BookedModal;
+export default BookingModal;

@@ -196,7 +196,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="src\CalendarBuilder.js" />
-    <Content Include="src\Components\BookedModal.jsx" />
+    <Content Include="src\Components\BookingModal.jsx" />
     <Content Include="src\Components\Calendar.jsx" />
     <Content Include="src\Components\ErrorBoundary.js" />
     <Content Include="src\Containers\CalendarContainer.js" />
