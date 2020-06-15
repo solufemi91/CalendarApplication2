@@ -26,8 +26,9 @@ namespace CalendarApplication.ModelBuilder
             var result = _accountWrapper.GetBookingDetailsAsync(id).ToList();
             var model = new UserHomePageModel
             {
-                FirstName = result.FirstOrDefault().FirstName,
-                LastName = result.FirstOrDefault().LastName,
+                LoginId = id,
+                FirstName = result.FirstOrDefault()?.FirstName,
+                LastName = result.FirstOrDefault()?.LastName,
                 BookingDetails = result
             };
            

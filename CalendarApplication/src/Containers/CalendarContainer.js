@@ -11,7 +11,26 @@ const getDaysWithModals = (weeks) => {
     return bookedDays;
 }
 
+const submitDataToServer = (dispatch) => {
+    const form = document.getElementById("myForm");
+    const XHR = new XMLHttpRequest();
 
+    const FD = new FormData(form);
+
+    XHR.addEventListener("load", function (event) {
+        let result = event.target.responseText;
+        let obj = JSON.parse(result);
+        dispatch({ type: 'SAVENEWBOOKING', updatedData: obj })
+    });
+
+    XHR.addEventListener("error", function (event) {
+        alert('Oops! Something went wrong.');
+    });
+
+    XHR.open("POST", "http://dev.mycalendar.com/home/UpdateBooking");
+
+    XHR.send(FD)
+}
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -26,6 +45,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         closeModal: dayNumber => {
             dispatch({ type: 'CLOSEMODAL', dayNumber: dayNumber });
+        },
+        saveNewBooking: () => {
+            submitDataToServer(dispatch)
         }
     };
 };
@@ -36,7 +58,8 @@ const mapStateToProps = (state) => {
         month: state.CalendarData.Weeks,
         daysOfTheWeek: state.CalendarData.DaysOfTheWeek,
         monthName: state.CalendarData.MonthName,
-        days: getDaysWithModals(state.CalendarData.Weeks)
+        days: getDaysWithModals(state.CalendarData.Weeks),
+        loginId: state.LoginId
     }       
 }
 

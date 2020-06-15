@@ -12,5 +12,7 @@ namespace CalendarApplication.Wrapper
         LoginResponseDTO PostValidUser(LoginRequestDTO loginRequest);
 
         IEnumerable<BookingDetailsDTO> GetBookingDetailsAsync(int? id);
+
+        IEnumerable<BookingDetailsDTO> UpdateBookingAsync(FormDataRequestDTO formDataRequest);
     }
 }

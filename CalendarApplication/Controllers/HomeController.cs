@@ -4,6 +4,7 @@ using CalendarApplication.Wrapper;
 using LoginApiClientV3;
 using LoginApiClientV3.Models;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -30,6 +31,24 @@ namespace CalendarApplication.Controllers
             var result = _accountWrapper.PostValidUser(loginRequest);
 
             return RedirectToAction("userHomePage", "home", new { id = result?.LoginDetailsID });
+        }
+
+        [HttpPost]
+        public JsonResult UpdateBooking(FormDataRequestDTO formData)
+        {
+            var result = _accountWrapper.UpdateBookingAsync(formData);
+            //var result = new List<BookingDetailsDTO>();
+
+            //var bk = new BookingDetailsDTO();
+            //bk.Description = "My result came back";
+
+            //result.Add(bk);
+
+            var jsonResult = new JsonResult();
+
+            jsonResult.Data = result;
+
+            return jsonResult;
         }
 
         [HttpGet]

@@ -30,5 +30,12 @@ namespace CalendarApplication.Wrapper
 
             return result;
         }
+
+        public IEnumerable<BookingDetailsDTO> UpdateBookingAsync(FormDataRequestDTO formDataRequest)
+        {
+            var result = Task.Run(async () => await _loginClient.PostNewBooking(formDataRequest)).GetAwaiter().GetResult();
+
+            return result;
+        }
     }
 }

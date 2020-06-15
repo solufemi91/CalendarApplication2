@@ -28,11 +28,20 @@ export const Reducer = (state = initialState, action) => {
         case 'OPENMODAL':
             return Object.assign({}, state, { CalendarData: mutateClonedModalState(state, action.dayNumber, 'Open') });
         case 'CLOSEMODAL':
-            return Object.assign({}, state, { CalendarData: mutateClonedModalState(state, action.dayNumber) } );
+            return Object.assign({}, state, { CalendarData: mutateClonedModalState(state, action.dayNumber) });
+        case 'SAVENEWBOOKING':
+            return Object.assign({}, state, updateCalenderUI(updateCalenderAfterNewBooking(state, action.updatedData)))
         default:
             return state;
     }
 };
+
+
+const updateCalenderAfterNewBooking = (state, data) => {
+    let clonedState = cloneDeep(state);
+    return Object.assign({}, clonedState, { BookingDetails: data })
+}
+
 
 const mutateClonedCalenderState = (state, monthNumber) => {
     let clonedState = cloneDeep(state);
@@ -55,12 +64,12 @@ const updateCalenderUI = (data, targetMonth = getCurrentMonth()) => {
     let calendarData = calendarBuilder.GetMonth(targetMonth, currentYear);
  
     calendarData.DaysOfTheWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-    calendarData.Weeks = hydrateDayInstance(calendarData, data.BookingDetails) 
+    calendarData.Weeks = hydrateDayInstance(calendarData, data.BookingDetails, currentYear) 
      
     return Object.assign(data, { CalendarData: calendarData })
 }
 
-const hydrateDayInstance = (month, bookingDetails) => {
+const hydrateDayInstance = (month, bookingDetails, currentYear) => {
 
     let filteredMonth = month.Weeks.filter(x => x !== null)
 
@@ -68,7 +77,8 @@ const hydrateDayInstance = (month, bookingDetails) => {
         Days: week.Days.map(d => ({
             number: d,
             highlight: (d === new Date().getDate()) && (month.MonthNumber === getCurrentMonth()),
-            bookingDetails: hydrateBookingDetails(d, month, bookingDetails)
+            bookingDetails: hydrateBookingDetails(d, month, bookingDetails),
+            date: `${d}/${month.MonthNumber}/${currentYear}`
         }))
     }))
 
@@ -98,6 +108,7 @@ const setModal = (data, number, modalAction = null) => {
         Days: week.Days.map(d => ({
             number: d.number,
             highlight: d.highlight,
+            date: d.date,
             bookingDetails: updateModalState(d, number, modalAction),
             openNewModal: (d.number === number) && modalAction != null
         }))
