@@ -11,9 +11,11 @@ export const initialState = {
 export const Reducer = (state = initialState, action) => {
 
     let number;
+    let targetYear;
 
     if (state.CalendarData.Weeks) {
         number = state.CalendarData.MonthNumber;
+        targetYear = state.CalendarData.Year;
     }
     
     switch (action.type) {
@@ -21,10 +23,24 @@ export const Reducer = (state = initialState, action) => {
             return Object.assign({}, state, updateCalenderUI(action.data));
         case 'ADDMONTH':            
             number++
-            return Object.assign({}, state, { CalendarData: mutateClonedCalenderState(state, number) });
+
+            if (number === 13) {
+                number = 1;
+                targetYear = state.CalendarData.Year + 1;
+            }
+
+            return Object.assign({}, state, { CalendarData: mutateClonedCalenderState(state, number, targetYear) });
+
         case 'MINUSMONTH':
             number--
-            return Object.assign({}, state, { CalendarData: mutateClonedCalenderState(state, number) });
+
+            if (number === 0) {
+                number = 12;
+                targetYear = state.CalendarData.Year - 1;
+            }
+
+            return Object.assign({}, state, { CalendarData: mutateClonedCalenderState(state, number, targetYear) });
+
         case 'OPENMODAL':
             return Object.assign({}, state, { CalendarData: mutateClonedModalState(state, action.dayNumber, 'Open') });
         case 'CLOSEMODAL':
@@ -36,14 +52,13 @@ export const Reducer = (state = initialState, action) => {
     }
 };
 
-const updateCalenderUI = (data, targetMonth = getCurrentMonth()) => {
+const updateCalenderUI = (data, targetMonth = getCurrentMonth(), targetYear = getCurrentYear()) => {
     let calendarBuilder = new CalendarBuilder();
-    let currentYear = new Date().getFullYear();
 
-    let calendarData = calendarBuilder.GetMonth(targetMonth, currentYear);
+    let calendarData = calendarBuilder.GetMonth(targetMonth, targetYear);
 
     calendarData.DaysOfTheWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-    calendarData.Weeks = hydrateDayInstance(calendarData, data.BookingDetails, currentYear)
+    calendarData.Weeks = hydrateDayInstance(calendarData, data.BookingDetails, targetYear)
 
     return Object.assign(data, { CalendarData: calendarData })
 }
@@ -53,9 +68,9 @@ const updateCalenderAfterNewBooking = (state, data) => {
     return Object.assign({}, clonedState, { BookingDetails: data })
 }
 
-const mutateClonedCalenderState = (state, monthNumber) => {
+const mutateClonedCalenderState = (state, monthNumber, targetYear) => {
     let clonedState = cloneDeep(state);
-    let result = updateCalenderUI(clonedState, monthNumber);
+    let result = updateCalenderUI(clonedState, monthNumber, targetYear);
 
     return result.CalendarData
 }
@@ -152,6 +167,10 @@ const dateConverter = (date) => {
 
 const getCurrentMonth = () => {
     return new Date().getMonth() + 1
+}
+
+const getCurrentYear = () => {
+    return new Date().getFullYear()
 }
 
 
