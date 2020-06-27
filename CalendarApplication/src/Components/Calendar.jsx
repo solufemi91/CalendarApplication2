@@ -13,7 +13,7 @@ class Calendar extends React.Component {
     render() {
            return (
                 <div>
-                   <h1>{this.currentDate}</h1>
+                   <h1>{this.props.year}</h1>
                    <h2>{this.props.monthName}</h2>
                    <button onClick={this.props.minusMonth} type="button">Previous Month</button>
                    <button onClick={this.props.addMonth} type="button">Next Month</button>

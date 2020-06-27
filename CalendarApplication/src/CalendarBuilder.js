@@ -25,7 +25,8 @@ export class CalendarBuilder {
         let month = {
             MonthNumber: monthNumber,
             MonthName: monthName,
-            Weeks: weekList
+            Weeks: weekList,
+            Year: year
         }
 
         return month;

@@ -59,7 +59,8 @@ const mapStateToProps = (state) => {
         daysOfTheWeek: state.CalendarData.DaysOfTheWeek,
         monthName: state.CalendarData.MonthName,
         days: getDaysWithModals(state.CalendarData.Weeks),
-        loginId: state.LoginId
+        loginId: state.LoginId,
+        year: state.CalendarData.Year
     }       
 }
 

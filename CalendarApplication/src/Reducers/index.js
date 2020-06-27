@@ -36,37 +36,28 @@ export const Reducer = (state = initialState, action) => {
     }
 };
 
+const updateCalenderUI = (data, targetMonth = getCurrentMonth()) => {
+    let calendarBuilder = new CalendarBuilder();
+    let currentYear = new Date().getFullYear();
+
+    let calendarData = calendarBuilder.GetMonth(targetMonth, currentYear);
+
+    calendarData.DaysOfTheWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    calendarData.Weeks = hydrateDayInstance(calendarData, data.BookingDetails, currentYear)
+
+    return Object.assign(data, { CalendarData: calendarData })
+}
 
 const updateCalenderAfterNewBooking = (state, data) => {
     let clonedState = cloneDeep(state);
     return Object.assign({}, clonedState, { BookingDetails: data })
 }
 
-
 const mutateClonedCalenderState = (state, monthNumber) => {
     let clonedState = cloneDeep(state);
     let result = updateCalenderUI(clonedState, monthNumber);
 
     return result.CalendarData
-}
-
-const mutateClonedModalState = (state, dayNumber, modalState = null) => {
-    let clonedState = cloneDeep(state);
-    let result = setModal(clonedState, dayNumber, modalState)
-
-    return result.CalendarData
-}
-
-const updateCalenderUI = (data, targetMonth = getCurrentMonth()) => {
-    let calendarBuilder = new CalendarBuilder();
-    let currentYear = new Date().getFullYear();
-
-    let calendarData = calendarBuilder.GetMonth(targetMonth, currentYear);
- 
-    calendarData.DaysOfTheWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-    calendarData.Weeks = hydrateDayInstance(calendarData, data.BookingDetails, currentYear) 
-     
-    return Object.assign(data, { CalendarData: calendarData })
 }
 
 const hydrateDayInstance = (month, bookingDetails, currentYear) => {
@@ -100,6 +91,13 @@ const hydrateBookingDetails = (dayNumber, month, bookingDetails) => {
     } else {
         return []
     }
+}
+
+const mutateClonedModalState = (state, dayNumber, modalState = null) => {
+    let clonedState = cloneDeep(state);
+    let result = setModal(clonedState, dayNumber, modalState)
+
+    return result.CalendarData
 }
 
 const setModal = (data, number, modalAction = null) => {
