@@ -37,12 +37,6 @@ namespace CalendarApplication.Controllers
         public JsonResult UpdateBooking(FormDataRequestDTO formData)
         {
             var result = _accountWrapper.UpdateBookingAsync(formData);
-            //var result = new List<BookingDetailsDTO>();
-
-            //var bk = new BookingDetailsDTO();
-            //bk.Description = "My result came back";
-
-            //result.Add(bk);
 
             var jsonResult = new JsonResult();
 

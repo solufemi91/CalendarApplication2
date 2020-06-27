@@ -13,8 +13,8 @@
                         <span onClick={() => this.props.closeModal(this.props.day.number)} className="close">&times;</span>
                         <p>Location: {this.props.day.bookingDetails[0].Location}</p>
                         <p>Description: {this.props.day.bookingDetails[0].Description}</p>
-                        <p>Start time: {this.props.day.bookingDetails[0].StartTime}</p>
-                        <p>End time: {this.props.day.bookingDetails[0].EndTime}</p>
+                        <p style={{ display: "none" }} >Start time: {this.props.day.bookingDetails[0].StartTime}</p>
+                        <p style={{ display: "none" }} >End time: {this.props.day.bookingDetails[0].EndTime}</p>
                     </div>
 
                 </div>
@@ -36,9 +36,9 @@
                             <label>Location:</label>
                             <input type="text" id="Location" name="Location"></input>
                             <label>Start time:</label>
-                            <input type="text" id="StartTime" name="StartTime"></input>
+                            <input type="text" id="StartTime" name="StartTime" style={{ display: "none" }}></input>
                             <label>End time:</label>
-                            <input type="text" id="EndTime" name="EndTime"></input>
+                            <input type="text" id="EndTime" name="EndTime" style={{ display: "none" }}></input>
 
                             <input onClick={this.props.saveNewBooking} defaultValue="Submit"></input>
                         </form> 
