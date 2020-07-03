@@ -3,26 +3,15 @@
     padding-bottom: 20px;
     font-family: 'Helvetica';
     border: 1px solid blue;
+    background: white;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-.dl-horizontal dt {
-    white-space: normal;
-}
-
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
 textarea {
     max-width: 280px;
+}
+
+.tableWrapper {
+    background: white;
 }
 
 table {
@@ -44,7 +33,7 @@ td {
 }
 
 #currentDayHighlighted{
-    background: red;
+    background: orange;
 }
 
 /* The Modal (background) */
@@ -65,7 +54,6 @@ td {
 .modal-content {
   background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
-  padding: 20px;
   border: 1px solid #888;
   width: 80%; /* Could be more or less, depending on screen size */
 }
@@ -83,4 +71,47 @@ td {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+#changeMonth {
+    margin: auto;
+    width: 50%;
+    margin-bottom: 20px;
+    padding: 40px;
+}
+
+#monthName {
+    margin: 0px 30px
+}
+
+.monthButton {
+    background: orange;
+    color: white;
+    border-color: orange;
+    border-radius: 8px;
+}
+
+#modalHeader {
+    height: 26px;
+    width: auto;
+    background: orange;
+    border-radius: 3px;
+}
+
+#formContainer {
+    padding: 0px 20px 20px 20px;
+    background: #4662e8
+}
+
+
+.formLabels {
+    background: #4a72bc;
+    color: white;
+    margin: 0px 20px;
+    width: 87px;
+    text-align: center;
+}
+
+#myForm {
+    text-align: center;
 }

@@ -12,11 +12,12 @@ class Calendar extends React.Component {
 
     render() {
            return (
-                <div>
-                   <h1>{this.props.year}</h1>
-                   <h2>{this.props.monthName}</h2>
-                   <button onClick={this.props.minusMonth} type="button">Previous Month</button>
-                   <button onClick={this.props.addMonth} type="button">Next Month</button>
+               <div>
+                   <div id="changeMonth">
+                       <button class="monthButton" onClick={this.props.minusMonth} type="button">Previous Month</button>  
+                       <h4 id="monthName" style={{ display: "inline" }}>{this.props.monthName + "  " + this.props.year}</h4>                                                
+                       <button class="monthButton" onClick={this.props.addMonth} type="button">Next Month</button>
+                   </div>
                    <table>
                        <TableHeader days={this.props.daysOfTheWeek} />
                        <tbody>
