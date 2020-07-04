@@ -14,9 +14,9 @@ class Calendar extends React.Component {
            return (
                <div>
                    <div id="changeMonth">
-                       <button class="monthButton" onClick={this.props.minusMonth} type="button">Previous Month</button>  
+                       <button className="monthButton" onClick={this.props.minusMonth} type="button">Previous Month</button>  
                        <h4 id="monthName" style={{ display: "inline" }}>{this.props.monthName + "  " + this.props.year}</h4>                                                
-                       <button class="monthButton" onClick={this.props.addMonth} type="button">Next Month</button>
+                       <button className="monthButton" onClick={this.props.addMonth} type="button">Next Month</button>
                    </div>
                    <table>
                        <TableHeader days={this.props.daysOfTheWeek} />

@@ -16,7 +16,7 @@ export class CalendarBuilder {
         let weekList = []
         this.dateNumber = 1
 
-        while (this.dateNumber < 32) {
+        while (this.IsValidDate(year, monthNumber, this.dateNumber)) {
             weekList.push(this.GetWeek(monthNumber, year))
         }
 
@@ -32,38 +32,28 @@ export class CalendarBuilder {
         return month;
     }
 
-    IsValidDate(year, month, day) {
-        var m = moment(`${year}-${month}-${day}`, 'YYYY-MM-DD');
-        return m.isValid(); 
+    GetWeek(monthNumber, year) {
+
+        let days = [0,0,0,0,0,0,0]
+        let indexPositionOfDate = 0;
+
+        for (let dayDateNumber = this.dateNumber; (this.IsValidDate(year, monthNumber, this.dateNumber)) && (indexPositionOfDate < 6); dayDateNumber++) {
+
+            let date = new Date(year, monthNumber - 1, this.dateNumber);
+
+            indexPositionOfDate = (date.getDay() == 0) ? 6 : (date.getDay() - 1);
+
+            days[indexPositionOfDate] = dayDateNumber;
+
+            this.dateNumber++;
+        }
+
+        return { Days: days }
     }
 
-    GetWeek(monthNumber, year) {
-        if (this.IsValidDate(year, monthNumber, this.dateNumber)) {
-            let days = [0,0,0,0,0,0,0]
-            let indexPositionOfDate = 0;
-
-            for (let dayDateNumber = this.dateNumber;
-                (this.IsValidDate(year, monthNumber, this.dateNumber)) && (indexPositionOfDate < 6);
-                dayDateNumber++) {
-
-                let date = new Date(year, monthNumber - 1, this.dateNumber);
-
-                indexPositionOfDate = (date.getDay() == 0) ? 6 : (date.getDay() - 1);
-
-                days[indexPositionOfDate] = dayDateNumber;
-
-                this.dateNumber++;
-            }
-
-            let week = { Days: days }
-
-            return week;
-
-        }
-        else {
-            this.dateNumber = 32;
-            return null
-        }
+    IsValidDate(year, month, day) {
+        var m = moment(`${year}-${month}-${day}`, 'YYYY-MM-DD');
+        return m.isValid();
     }
 
 }
