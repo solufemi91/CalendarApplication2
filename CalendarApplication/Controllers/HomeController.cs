@@ -28,6 +28,7 @@ namespace CalendarApplication.Controllers
         [HttpPost]
         public ActionResult Login(LoginRequestDTO loginRequest)
         {
+            var test = "test";
             var result = _accountWrapper.PostValidUser(loginRequest);
 
             return RedirectToAction("userHomePage", "home", new { id = result?.LoginDetailsID });
